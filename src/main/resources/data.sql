@@ -44,4 +44,3 @@ VALUES (1, 1),
        (3, 1),
        (3, 2);
 
-alter sequence hibernate_sequence restart with 10;

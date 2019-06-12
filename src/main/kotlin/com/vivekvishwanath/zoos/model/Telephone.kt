@@ -11,11 +11,10 @@ data class Telephone (
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         var phoneid: Long,
 
-        var phoneType: String? = null,
+        var phonetype: String? = null,
         var phonenumber: String? = null,
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "zooid", nullable = false)
-        @JsonIgnore
         var zoo: Zoo? = null
 )

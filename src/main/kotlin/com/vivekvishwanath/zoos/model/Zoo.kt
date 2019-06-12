@@ -16,10 +16,11 @@ data class Zoo(
                 cascade = [CascadeType.ALL],
                 orphanRemoval = true,
                 fetch = FetchType.LAZY)
-        @JsonIgnoreProperties("zoo")
         var telephones: MutableList<Telephone> = mutableListOf(),
 
-        @ManyToMany(mappedBy = "zoos")
-        @JsonIgnoreProperties("zoos")
+        @ManyToMany
+        @JoinTable(name = "zooanimals",
+                joinColumns = [JoinColumn(name = "zooid")],
+                inverseJoinColumns = [JoinColumn(name = "animalid")])
         var animals: MutableList<Animal> = mutableListOf()
 )
