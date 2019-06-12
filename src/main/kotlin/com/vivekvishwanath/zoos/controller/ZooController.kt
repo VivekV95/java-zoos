@@ -19,4 +19,9 @@ class ZooController {
     fun findAllZoos(): ResponseEntity<Any> {
         return ResponseEntity(zooService.findAll(), HttpStatus.OK)
     }
+
+    @GetMapping(value = ["/animals/count"], produces = ["application/json"])
+    fun showCountZoosForAnimals(): ResponseEntity<Any> {
+        return ResponseEntity(zooService.getCountZoosForAnimals(), HttpStatus.OK)
+    }
 }
