@@ -20,5 +20,6 @@ data class Zoo(
         var telephones: MutableList<Telephone> = mutableListOf(),
 
         @ManyToMany(mappedBy = "zoos")
+        @JsonIgnoreProperties("zoos")
         var animals: MutableList<Animal> = mutableListOf()
 )

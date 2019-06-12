@@ -1,3 +1,21 @@
 package com.vivekvishwanath.zoos.model
 
-data class Telephone ()
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import javax.persistence.*
+
+@Entity
+@Table(name = "telephones")
+data class Telephone (
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        var phoneid: Long,
+
+        var phoneType: String? = null,
+        var phonenumber: String? = null,
+
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "zooid", nullable = false)
+        @JsonIgnore
+        var zoo: Zoo? = null
+)
