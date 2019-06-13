@@ -9,14 +9,14 @@ import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityNotFoundException
 
 @Service(value = "zooService")
-class ZooServiceImpl: ZooService {
+class ZooServiceImpl : ZooService {
 
     @Autowired
     private lateinit var zooRepository: ZooRepository
 
     override fun findAll(): MutableList<Zoo> {
         val zooList = mutableListOf<Zoo>()
-        zooRepository.findAll().iterator().forEachRemaining{zooList.add(it)}
+        zooRepository.findAll().iterator().forEachRemaining { zooList.add(it) }
         return zooList
     }
 
@@ -36,8 +36,7 @@ class ZooServiceImpl: ZooService {
 
     @Transactional
     override fun updateZoo(zoo: Zoo, zooid: Long): Zoo {
-        val currentZoo = zooRepository.findById(zooid).
-                orElseThrow{EntityNotFoundException(zooid.toString())}
+        val currentZoo = zooRepository.findById(zooid).orElseThrow { EntityNotFoundException(zooid.toString()) }
         currentZoo.zooname = zoo.zooname
         for (telephone in zoo.telephones) {
             telephone.zoo = currentZoo
@@ -58,6 +57,11 @@ class ZooServiceImpl: ZooService {
     }
 
     override fun findZooById(zooid: Long): Zoo {
-        return zooRepository.findById(zooid).orElseThrow{EntityNotFoundException(zooid.toString())}
+        return zooRepository.findById(zooid).orElseThrow { EntityNotFoundException(zooid.toString()) }
+    }
+
+    @Transactional
+    override fun deleteZooAnimalIds(zooid: Long, animalid: Long) {
+        zooRepository.deleteZooAnimalIds(zooid, animalid)
     }
 }

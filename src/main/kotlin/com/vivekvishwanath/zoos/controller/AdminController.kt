@@ -2,6 +2,7 @@ package com.vivekvishwanath.zoos.controller
 
 import com.vivekvishwanath.zoos.model.Zoo
 import com.vivekvishwanath.zoos.service.ZooService
+import org.apache.coyote.Response
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
@@ -48,6 +49,13 @@ class AdminController {
     @DeleteMapping(value = ["/zoos/{zooid}"])
     fun deleteZooById(@PathVariable zooid: Long): ResponseEntity<Any> {
         zooService.deleteZoo(zooid)
+        return ResponseEntity(HttpStatus.OK)
+    }
+
+    @DeleteMapping(value = ["/zoos/{zooid}/animals/{animalid}"])
+    fun deleteZooAnimalIds(@PathVariable zooid: Long,
+                           @PathVariable animalid: Long): ResponseEntity<Any> {
+        zooService.deleteZooAnimalIds(zooid, animalid)
         return ResponseEntity(HttpStatus.OK)
     }
 }
