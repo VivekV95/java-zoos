@@ -21,10 +21,14 @@ class AdminController {
     @PutMapping (value = ["/zoos/{zooid}"],
             consumes = ["application/json"],
             produces = ["application/json"])
-    fun updateZooById(@Valid @RequestBody updateZoo: Zoo,
+    fun updateZooById(request: HttpServletRequest, @Valid @RequestBody updateZoo: Zoo,
                       @PathVariable zooid: Long): ResponseEntity<Any> {
-        zooService.updateZoo(updateZoo, zooid)
-        return ResponseEntity(HttpStatus.OK)
+        val updateZoo = zooService.updateZoo(updateZoo, zooid)
+        val responseHeaders = HttpHeaders()
+        val newZooURI = ServletUriComponentsBuilder.fromUriString(request.serverName +
+                ":" + request.localPort + "/zoos/zoo/{zooid}").buildAndExpand(updateZoo.zooid).toUri()
+        responseHeaders.location = newZooURI
+        return ResponseEntity(null, responseHeaders, HttpStatus.OK)
     }
 
     @PostMapping(value = ["/zoos"],
@@ -36,7 +40,7 @@ class AdminController {
 
         val responseHeaders = HttpHeaders()
         val newZooURI = ServletUriComponentsBuilder.fromUriString(request.serverName +
-        ":" + request.localPort + "/zoos/zoos/{zooid}").buildAndExpand(newZoo.zooid).toUri()
+        ":" + request.localPort + "/zoos/zoo/{zooid}").buildAndExpand(newZoo.zooid).toUri()
         responseHeaders.location = newZooURI
         return ResponseEntity(newZoo, responseHeaders, HttpStatus.OK)
     }
