@@ -17,6 +17,7 @@ class ZooController {
 
     @GetMapping(value = ["zoos"], produces = ["application/json"])
     fun findAllZoos(): ResponseEntity<Any> {
+        val list = zooService.findAll()
         return ResponseEntity(zooService.findAll(), HttpStatus.OK)
     }
 

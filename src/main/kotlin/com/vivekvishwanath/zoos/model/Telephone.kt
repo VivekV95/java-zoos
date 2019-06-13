@@ -9,12 +9,13 @@ import javax.persistence.*
 data class Telephone (
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var phoneid: Long,
+        var phoneid: Long? = 0,
 
         var phonetype: String? = null,
         var phonenumber: String? = null,
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "zooid", nullable = false)
+        @JsonIgnore
         var zoo: Zoo? = null
 )

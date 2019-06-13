@@ -7,7 +7,7 @@ import javax.persistence.*
 data class Animal(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var animalid: Long,
+        var animalid: Long? = 0,
 
         var animaltype: String,
 

@@ -8,7 +8,7 @@ import javax.persistence.*
 data class Zoo(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var zooid: Long,
+        var zooid: Long? = 0,
 
         var zooname: String,
 
@@ -16,7 +16,6 @@ data class Zoo(
                 cascade = [CascadeType.ALL],
                 orphanRemoval = true,
                 fetch = FetchType.LAZY)
-        @JsonIgnoreProperties("zoo")
         var telephones: MutableList<Telephone> = mutableListOf(),
 
         @ManyToMany
