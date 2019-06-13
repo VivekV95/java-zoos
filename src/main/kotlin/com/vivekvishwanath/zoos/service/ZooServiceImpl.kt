@@ -43,6 +43,10 @@ class ZooServiceImpl: ZooService {
             telephone.zoo = currentZoo
             currentZoo.telephones.add(telephone)
         }
+        for (animal in zoo.animals) {
+            animal.zoos.add(currentZoo)
+            currentZoo.animals.add(animal)
+        }
         return zooRepository.save(currentZoo)
     }
 

@@ -3,9 +3,12 @@ package com.vivekvishwanath.zoos.controller
 import com.vivekvishwanath.zoos.model.Zoo
 import com.vivekvishwanath.zoos.service.ZooService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder
+import javax.servlet.http.HttpServletRequest
 import javax.validation.Valid
 
 @RestController
@@ -27,7 +30,14 @@ class AdminController {
     @PostMapping(value = ["/zoos"],
             consumes = ["application/json"],
             produces = ["application/json"])
-    fun addNewZoo(@Valid @RequestBody zoo: Zoo): ResponseEntity<Any> {
-        return ResponseEntity(zooService.addZoo(zoo), HttpStatus.OK)
+    fun addNewZoo(request: HttpServletRequest,
+                  @Valid @RequestBody zoo: Zoo): ResponseEntity<Any> {
+        val newZoo = zooService.addZoo(zoo)
+
+        val responseHeaders = HttpHeaders()
+        val newZooURI = ServletUriComponentsBuilder.fromUriString(request.serverName +
+        ":" + request.localPort + "/zoos/zoos/{zooid}").buildAndExpand(newZoo.zooid).toUri()
+        responseHeaders.location = newZooURI
+        return ResponseEntity(newZoo, responseHeaders, HttpStatus.OK)
     }
 }
