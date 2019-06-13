@@ -26,7 +26,8 @@ class ZooServiceImpl: ZooService {
 
 
     override fun addZoo(zoo: Zoo): Zoo {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val newZoo = zoo.copy()
+        return zooRepository.save(newZoo)
     }
 
     @Transactional
@@ -34,14 +35,9 @@ class ZooServiceImpl: ZooService {
         val currentZoo = zooRepository.findById(zooid).
                 orElseThrow{EntityNotFoundException(zooid.toString())}
         currentZoo.zooname = zoo.zooname
-        currentZoo.telephones.clear()
         for (telephone in zoo.telephones) {
             telephone.zoo = currentZoo
             currentZoo.telephones.add(telephone)
-        }
-        currentZoo.animals.clear()
-        for (animal in zoo.animals) {
-            currentZoo.animals.add(animal)
         }
         return zooRepository.save(currentZoo)
     }

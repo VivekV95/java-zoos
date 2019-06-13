@@ -1,5 +1,6 @@
 package com.vivekvishwanath.zoos.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity

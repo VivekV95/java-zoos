@@ -16,6 +16,5 @@ data class Telephone (
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "zooid", nullable = false)
-        @JsonIgnore
         var zoo: Zoo? = null
 )

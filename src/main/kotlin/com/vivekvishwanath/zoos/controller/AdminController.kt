@@ -23,4 +23,11 @@ class AdminController {
         zooService.updateZoo(updateZoo, zooid)
         return ResponseEntity(HttpStatus.OK)
     }
+
+    @PostMapping(value = ["/zoos"],
+            consumes = ["application/json"],
+            produces = ["application/json"])
+    fun addNewZoo(@Valid @RequestBody zoo: Zoo): ResponseEntity<Any> {
+        return ResponseEntity(zooService.addZoo(zoo), HttpStatus.OK)
+    }
 }
