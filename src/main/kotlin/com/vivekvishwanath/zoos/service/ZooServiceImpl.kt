@@ -52,6 +52,8 @@ class ZooServiceImpl: ZooService {
 
     @Transactional
     override fun deleteZoo(zooid: Long) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (zooRepository.findById(zooid).isPresent) {
+            zooRepository.deleteById(zooid)
+        }
     }
 }

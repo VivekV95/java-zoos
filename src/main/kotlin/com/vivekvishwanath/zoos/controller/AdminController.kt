@@ -40,4 +40,10 @@ class AdminController {
         responseHeaders.location = newZooURI
         return ResponseEntity(newZoo, responseHeaders, HttpStatus.OK)
     }
+
+    @DeleteMapping(value = ["/zoos/{zooid}"])
+    fun deleteZooById(@PathVariable zooid: Long): ResponseEntity<Any> {
+        zooService.deleteZoo(zooid)
+        return ResponseEntity(HttpStatus.OK)
+    }
 }
