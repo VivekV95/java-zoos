@@ -25,8 +25,12 @@ class ZooServiceImpl: ZooService {
     }
 
 
+    @Transactional
     override fun addZoo(zoo: Zoo): Zoo {
         val newZoo = zoo.copy()
+        for (telephone in newZoo.telephones) {
+            telephone.zoo = newZoo
+        }
         return zooRepository.save(newZoo)
     }
 
