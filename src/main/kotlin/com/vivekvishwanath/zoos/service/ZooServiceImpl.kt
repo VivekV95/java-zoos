@@ -56,4 +56,8 @@ class ZooServiceImpl: ZooService {
             zooRepository.deleteById(zooid)
         }
     }
+
+    override fun findZooById(zooid: Long): Zoo {
+        return zooRepository.findById(zooid).orElseThrow{EntityNotFoundException(zooid.toString())}
+    }
 }

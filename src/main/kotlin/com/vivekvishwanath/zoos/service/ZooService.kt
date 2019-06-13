@@ -13,4 +13,6 @@ interface ZooService {
     fun deleteZoo(zooid: Long)
 
     fun getCountZoosForAnimals(): MutableList<CountZoosForAnimals>
+
+    fun findZooById(zooid: Long): Zoo
 }
